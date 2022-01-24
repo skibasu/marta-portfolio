@@ -2,7 +2,6 @@ import { getMenu, getCategoriesMenu } from "../../api"
 import Header from "../../app/components/Header/Header"
 import Layout from "../../app/Layout/Layout"
 import PortfolioMenu from "../../app/components/PortfolioMenu/PortfolioMenu"
-import styles from "../../styles/Home.module.css"
 import { GetStaticProps } from "next"
 import { IServerData } from "../../models"
 /////////////////////////////////////////////
@@ -12,9 +11,11 @@ const Portfolio: React.FC<IServerData> = ({ menu, categoriesMenu }) => {
     return (
         <Layout>
             <Header menu={menu} />
-            <div className={styles.container}>
-                <h1 className={styles.title}>Portfolio Menu</h1>
-                <PortfolioMenu menu={categoriesMenu} />
+            <div className="container max-w-full min-w-full bg-red-200">
+                <h1 className="font-raleway text-center font-semibold">
+                    Portfolio Menu
+                </h1>
+                {/* <PortfolioMenu menu={categoriesMenu} /> */}
             </div>
         </Layout>
     )

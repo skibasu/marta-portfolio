@@ -5,7 +5,7 @@ interface IHeaderProps {
 }
 const Header: React.FC<IHeaderProps> = ({ menu }) => {
     return (
-        <header>
+        <header className="bg-black">
             <div className="logo">
                 <Link href="/">LOGO</Link>
             </div>
@@ -13,7 +13,11 @@ const Header: React.FC<IHeaderProps> = ({ menu }) => {
                 <ul style={{ display: "flex" }}>
                     {menu.map((v: any, k: number) => {
                         return (
-                            <li key={k} style={{ padding: "0 10px" }}>
+                            <li
+                                key={k}
+                                style={{ padding: "0 10px" }}
+                                className="text-neutral-200"
+                            >
                                 <Link
                                     href={`/${v.page.data.attributes.pageId}`}
                                 >

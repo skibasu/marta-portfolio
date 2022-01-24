@@ -1,10 +1,8 @@
 import Head from "next/head"
-import styles from "../../styles/Home.module.css"
-import Header from "../components/Header/Header"
 
 const Home: React.FC = ({ children }) => {
     return (
-        <div className={styles.container}>
+        <>
             <Head>
                 <title>Create Next App</title>
                 <meta
@@ -13,10 +11,9 @@ const Home: React.FC = ({ children }) => {
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            {/* <Header /> */}
 
-            <main className={styles.main}>{children}</main>
-        </div>
+            <main className="font-nunito">{children}</main>
+        </>
     )
 }
 export default Home

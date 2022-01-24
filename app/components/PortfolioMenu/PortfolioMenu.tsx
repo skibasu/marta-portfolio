@@ -14,7 +14,10 @@ const PortfolioMenu: React.FC<IPortfolioGridProps> = ({ menu }) => {
 
                     return (
                         <div key={slug}>
-                            <h2 style={{ margin: "0 12px", padding: "12px 0" }}>
+                            <h2
+                                className="text-sky-400"
+                                style={{ margin: "0 12px", padding: "12px 0" }}
+                            >
                                 {v.name}
                             </h2>
                             <figure style={{ margin: "0 12px" }}>
