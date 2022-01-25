@@ -4,7 +4,6 @@ import { IServerData } from "../../../models"
 
 const PortfolioElem: React.FC<IServerData> = ({ element, category }) => {
     const src = `http://localhost:1337${element.Pictures.data[0].attributes.formats.medium.url}`
-    const slug = element.Title.replace(/\s/g, "-")
     const ratio = element.ratioimg
     return (
         <figure className="p-8">

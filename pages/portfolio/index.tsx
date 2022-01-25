@@ -6,8 +6,6 @@ import Layout from "../../app/Layout/Layout"
 import PortfolioMenu from "../../app/components/PortfolioMenu/PortfolioMenu"
 import { GetStaticProps } from "next"
 import { IServerData } from "../../models"
-import Row from "../../app/components/Row/Row"
-
 /////////////////////////////////////////////
 /////////        COMPONENT        ///////////
 /////////////////////////////////////////////
