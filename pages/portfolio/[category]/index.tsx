@@ -1,5 +1,6 @@
 import Header from "../../../app/components/Header/Header"
 import Layout from "../../../app/Layout/Layout"
+import Container from "../../../app/components/Container/Container"
 import { getMenu, getPortfolios, getCategories } from "../../../api"
 import PortfolioGrid from "../../../app/components/PortfolioGrid/PorftolioGrid"
 import styles from "../../../styles/Home.module.css"
@@ -23,10 +24,12 @@ const Category: React.FC<IServerData> = ({ content, zone, menu }) => {
     return (
         <Layout>
             <Header menu={menu} />
-            <div className={styles.container}>
-                <h1 className={styles.title}>{content.Name}</h1>
+            <Container className="pt-lg flex flex-col justify-center">
+                <h1 className="font-raleway text-center font-semibold text-h1 mb-xl">
+                    {content.Name}
+                </h1>
                 <PortfolioGrid zone={zone} category={slug} />
-            </div>
+            </Container>
         </Layout>
     )
 }

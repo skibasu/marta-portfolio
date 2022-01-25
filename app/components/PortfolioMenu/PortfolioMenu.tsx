@@ -1,44 +1,47 @@
 import Link from "next/link"
 import Image from "next/image"
+import Row from "../Row/Row"
 
 interface IPortfolioGridProps {
     [key: string]: any
 }
 const PortfolioMenu: React.FC<IPortfolioGridProps> = ({ menu }) => {
     return (
-        <div>
-            <div style={{ display: "flex" }}>
+        <div className="-mx-md">
+            <Row>
                 {menu.map((v: any, k: number) => {
-                    const src = `http://localhost:1337${v.thumbnail.medium.url}`
+                    const src = v.thumbnail?.medium?.url
+                        ? `http://localhost:1337${v.thumbnail.medium.url}`
+                        : "http://localhost:1337/sample.jpg"
                     const slug = v.slug
 
                     return (
-                        <div key={slug}>
-                            <h2
-                                className="text-sky-400"
-                                style={{ margin: "0 12px", padding: "12px 0" }}
-                            >
-                                {v.name}
-                            </h2>
-                            <figure style={{ margin: "0 12px" }}>
+                        <div key={slug} className="basis-3/12 flex-none mb-lg">
+                            <figure className="px-md">
                                 <Link href={`/portfolio/${slug}`}>
                                     <a
                                         style={{
-                                            width: 640,
-                                            height: 420,
-                                            objectFit: "cover",
-                                            position: "relative",
                                             display: "block",
                                         }}
                                     >
-                                        <Image src={src} layout="fill" />
+                                        <div
+                                            className="aspect-alternative"
+                                            style={{
+                                                position: "relative",
+                                            }}
+                                        >
+                                            <Image src={src} layout="fill" />
+                                        </div>
+                                        <h2 className="text-medium py-8">
+                                            {v.name}
+                                        </h2>
                                     </a>
                                 </Link>
                             </figure>
                         </div>
                     )
                 })}
-            </div>
+            </Row>
         </div>
     )
 }

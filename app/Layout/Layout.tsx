@@ -12,7 +12,9 @@ const Home: React.FC = ({ children }) => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <main className="font-nunito">{children}</main>
+            <main className="font-nunito min-h-screen flex flex-col">
+                {children}
+            </main>
         </>
     )
 }

@@ -1,22 +1,32 @@
-import { getMenu, getCategoriesMenu } from "../../api"
+import { getMenu, getCategoriesMenu, getSettings } from "../../api"
 import Header from "../../app/components/Header/Header"
+import Footer from "../../app/components/Footer/Footer"
+import Container from "../../app/components/Container/Container"
 import Layout from "../../app/Layout/Layout"
 import PortfolioMenu from "../../app/components/PortfolioMenu/PortfolioMenu"
 import { GetStaticProps } from "next"
 import { IServerData } from "../../models"
+import Row from "../../app/components/Row/Row"
+
 /////////////////////////////////////////////
 /////////        COMPONENT        ///////////
 /////////////////////////////////////////////
-const Portfolio: React.FC<IServerData> = ({ menu, categoriesMenu }) => {
+const Portfolio: React.FC<IServerData> = ({
+    menu,
+    categoriesMenu,
+    themeSettings,
+}) => {
+    const { copyrights, socialMedia } = themeSettings
     return (
         <Layout>
             <Header menu={menu} />
-            <div className="container max-w-full min-w-full bg-red-200">
-                <h1 className="font-raleway text-center font-semibold">
-                    Portfolio Menu
+            <Container className="pt-lg flex flex-col justify-center">
+                <h1 className="font-raleway text-center font-semibold text-h1 mb-xl">
+                    Portfolio
                 </h1>
-                {/* <PortfolioMenu menu={categoriesMenu} /> */}
-            </div>
+                <PortfolioMenu menu={categoriesMenu} />
+            </Container>
+            <Footer copyrights={copyrights} socialMedia={socialMedia} />
         </Layout>
     )
 }
@@ -27,10 +37,12 @@ export default Portfolio
 export const getStaticProps: GetStaticProps = async () => {
     const menu = await getMenu()
     const categoriesMenu = await getCategoriesMenu()
+    const themeSettings = await getSettings()
     return {
         props: {
             menu,
             categoriesMenu,
+            themeSettings,
         },
         revalidate: 10,
     }

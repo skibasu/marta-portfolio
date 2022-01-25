@@ -24,7 +24,10 @@ const Project: React.FC<IServerData> = ({ project, menu }) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
     //-------- TODO --------//
     const { project, category } = context.params!
-    const projectContent = await getSinglePortfolio(category as string)
+    const projectContent = await getSinglePortfolio(
+        category as string,
+        project as string
+    )
     const menu = await getMenu()
     return {
         props: {
