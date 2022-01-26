@@ -3,3 +3,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.aspect-alternative {
+    aspect-ratio: 16 / 11;
+}
+
+.aspect-squere {
+    aspect-ratio: 16 / 16;
+}
+
+.aspect-movie {
+    aspect-ratio: 16 / 9;
+}

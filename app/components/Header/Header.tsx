@@ -1,6 +1,5 @@
 import Link from "next/link"
 import React from "react"
-import styled from "styled-components"
 import Container from "../Container/Container"
 import Row from "../Row/Row"
 
@@ -9,7 +8,10 @@ interface IHeaderProps {
 }
 const Header: React.FC<IHeaderProps> = ({ menu }) => {
     return (
-        <StyledHeader className="bg-black px-60 shadow-xl">
+        <header
+            className="bg-black px-60 shadow-xl h-header fixed  w-full z-50"
+            style={{ top: 0, left: 0, right: 0 }}
+        >
             <Container>
                 <Row className="justify-between items-center h-full">
                     <div className="logo">
@@ -38,11 +40,8 @@ const Header: React.FC<IHeaderProps> = ({ menu }) => {
                     </nav>
                 </Row>
             </Container>
-        </StyledHeader>
+        </header>
     )
 }
 
-const StyledHeader = styled.header`
-    height: 82px;
-`
 export default Header
