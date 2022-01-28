@@ -20,6 +20,8 @@ module.exports = {
             lg: "60px",
             xl: "70px",
             correct: "68px",
+            header: "85px",
+            footer: "105px",
         },
         extend: {
             fontFamily: {
@@ -48,6 +50,10 @@ module.exports = {
                 extraLarge: ["58px", { lineHeight: "1.3" }],
                 //  lg: ["1.125rem", { lineHeight: "1.75rem" }],
                 //  xl: ["1.25rem", { lineHeight: "1.75rem" }],
+            },
+            height: {
+                header: "85px",
+                footer: "105px",
             },
             screens: {
                 sm: "460px",

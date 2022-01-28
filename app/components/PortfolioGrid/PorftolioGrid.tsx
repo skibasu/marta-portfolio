@@ -1,7 +1,4 @@
-import Link from "next/link"
-import Image from "next/image"
 import Row from "../Row/Row"
-import Container from "../Container/Container"
 import PortfolioElem from "../PortfolioElem/PortfolioElem"
 
 interface IPortfolioGridProps {

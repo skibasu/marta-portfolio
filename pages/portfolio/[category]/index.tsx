@@ -1,13 +1,12 @@
-import Header from "../../../app/components/Header/Header"
-import Layout from "../../../app/Layout/Layout"
-import Container from "../../../app/components/Container/Container"
-import { getMenu, getPortfolios, getCategories } from "../../../api"
-import PortfolioGrid from "../../../app/components/PortfolioGrid/PorftolioGrid"
-import styles from "../../../styles/Home.module.css"
-
-import { IServerData } from "../../../models"
+import { getDataHooksProps } from "next-data-hooks"
 import { GetStaticProps } from "next"
 import { ParsedUrlQuery } from "querystring"
+import { getPortfolios, getCategories } from "../../../api"
+import Container from "../../../app/components/Container/Container"
+import Header from "../../../app/components/Header/Header"
+import Footer from "../../../app/components/Footer/Footer"
+import PortfolioGrid from "../../../app/components/PortfolioGrid/PorftolioGrid"
+import { IServerData } from "../../../models"
 
 interface Params extends ParsedUrlQuery {
     category: string
@@ -15,22 +14,20 @@ interface Params extends ParsedUrlQuery {
 interface Props extends ParsedUrlQuery {
     [key: string]: any
 }
-
 /////////////////////////////////////////////
 /////////        COMPONENT        ///////////
 /////////////////////////////////////////////
-const Category: React.FC<IServerData> = ({ content, zone, menu }) => {
-    const slug = content.slug
+const Category: React.FC<IServerData> = ({
+    content: { slug, Name: name },
+    zone,
+}) => {
     return (
-        <Layout>
-            <Header menu={menu} />
-            <Container className="pt-lg flex flex-col justify-center">
-                <h1 className="font-raleway text-center font-semibold text-h1 mb-xl">
-                    {content.Name}
-                </h1>
-                <PortfolioGrid zone={zone} category={slug} />
-            </Container>
-        </Layout>
+        <Container className="pt-lg flex flex-col justify-center bg-black">
+            <h1 className="font-raleway text-center font-semibold text-h1 mb-xl">
+                {name}
+            </h1>
+            <PortfolioGrid zone={zone} category={slug} />
+        </Container>
     )
 }
 export default Category
@@ -39,6 +36,7 @@ export default Category
 /////////////////////////////////////////////
 export const getStaticPaths = async () => {
     const category = await getCategories()
+
     return {
         paths: category,
         fallback: false,
@@ -52,13 +50,16 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (
 ) => {
     const { category } = context.params!
     const { content, zone } = await getPortfolios(category)
-    const menu = await getMenu()
+    const data = await getDataHooksProps({
+        context,
+        dataHooks: [...Header.dataHooks, ...Footer.dataHooks],
+    })
     return {
         props: {
             content,
-            menu,
             zone,
+            ...data,
         },
-        revalidate: 10,
+        revalidate: 1000,
     }
 }
