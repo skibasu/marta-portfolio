@@ -1,15 +1,17 @@
-import Link from "next/link"
 import Image from "next/image"
-import React from "react"
+import useThemeSettings from "../../hooks/useThemeSettings"
 import Container from "../Container/Container"
-import { IServerData } from "../../../models"
 
-const Footer: React.FC<IServerData> = ({ copyrights, socialMedia }) => {
+const Footer = () => {
+    const { socialMedia, copyrights } = useThemeSettings()
     return (
-        <footer className="bg-black pb-sm pt-md text-neutral-200">
+        <footer
+            className="bg-black pb-sm pt-md text-neutral-200 h-footer -mt-footer w-full relative z-10"
+            style={{ left: 0, right: 0, bottom: 0 }}
+        >
             <Container>
                 <ul className="flex justify-center mb-xs">
-                    {socialMedia.map((v: any) => {
+                    {socialMedia?.map((v: any) => {
                         const src = `http://localhost:1337${v.Icon.data.attributes.url}`
                         return (
                             <li
@@ -37,5 +39,5 @@ const Footer: React.FC<IServerData> = ({ copyrights, socialMedia }) => {
         </footer>
     )
 }
-
+Footer.dataHooks = [useThemeSettings]
 export default Footer

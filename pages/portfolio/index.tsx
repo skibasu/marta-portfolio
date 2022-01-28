@@ -1,47 +1,57 @@
-import { getMenu, getCategoriesMenu, getSettings } from "../../api"
+import { getDataHooksProps } from "next-data-hooks"
+import Image from "next/image"
+import { GetStaticProps } from "next"
+import { getCategoriesMenu, getSpecificPage } from "../../api"
+import Container from "../../app/components/Container/Container"
 import Header from "../../app/components/Header/Header"
 import Footer from "../../app/components/Footer/Footer"
-import Container from "../../app/components/Container/Container"
-import Layout from "../../app/Layout/Layout"
 import PortfolioMenu from "../../app/components/PortfolioMenu/PortfolioMenu"
-import { GetStaticProps } from "next"
 import { IServerData } from "../../models"
 /////////////////////////////////////////////
 /////////        COMPONENT        ///////////
 /////////////////////////////////////////////
-const Portfolio: React.FC<IServerData> = ({
-    menu,
-    categoriesMenu,
-    themeSettings,
-}) => {
-    const { copyrights, socialMedia } = themeSettings
+const Portfolio: React.FC<IServerData> = ({ categoriesMenu, pageContent }) => {
+    const background =
+        pageContent?.thumbnail?.data?.attributes?.formats?.large?.url
+    const src = `http://localhost:1337${background}`
+
     return (
-        <Layout>
-            <Header menu={menu} />
-            <Container className="pt-lg flex flex-col justify-center">
-                <h1 className="font-raleway text-center font-semibold text-h1 mb-xl">
-                    Portfolio
-                </h1>
-                <PortfolioMenu menu={categoriesMenu} />
-            </Container>
-            <Footer copyrights={copyrights} socialMedia={socialMedia} />
-        </Layout>
+        <Container className="pt-lg flex flex-col justify-center relative">
+            <span
+                className="w-full h-full absolute  z-10 bg-black opacity-80"
+                style={{ left: 0, right: 0, top: 0, bottom: 0 }}
+            ></span>
+            {background && (
+                <Image
+                    src={src}
+                    layout="fill"
+                    objectFit="cover"
+                    quality={100}
+                />
+            )}
+
+            <PortfolioMenu menu={categoriesMenu} title={pageContent.Title} />
+        </Container>
     )
 }
 export default Portfolio
 /////////////////////////////////////////////
 /////////    GET STATIC PROPS     ///////////
 /////////////////////////////////////////////
-export const getStaticProps: GetStaticProps = async () => {
-    const menu = await getMenu()
+export const getStaticProps: GetStaticProps = async (context) => {
     const categoriesMenu = await getCategoriesMenu()
-    const themeSettings = await getSettings()
+    const pageContent = await getSpecificPage("portfolio")
+
+    const data = await getDataHooksProps({
+        context,
+        dataHooks: [...Header.dataHooks, ...Footer.dataHooks],
+    })
     return {
         props: {
-            menu,
+            ...data,
             categoriesMenu,
-            themeSettings,
+            pageContent,
         },
-        revalidate: 10,
+        revalidate: 1000,
     }
 }

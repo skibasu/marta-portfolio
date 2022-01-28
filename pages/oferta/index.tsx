@@ -1,31 +1,31 @@
-import Layout from "../../app/Layout/Layout"
-import Header from "../../app/components/Header/Header"
-import { getMenu } from "../../api"
 import { GetStaticProps } from "next"
-import { IServerData } from "../../models"
-import styles from "../../styles/Home.module.css"
+import { getDataHooksProps } from "next-data-hooks"
+import Header from "../../app/components/Header/Header"
+import Footer from "../../app/components/Footer/Footer"
+import SectionFullBackground from "../../app/components/SectionFullBackground/SectionFullBackground"
+
 /////////////////////////////////////////////
 /////////        COMPONENT        ///////////
 /////////////////////////////////////////////
-const Offer: React.FC<IServerData> = ({ menu }) => {
-    return (
-        <Layout>
-            <Header menu={menu} />
-            <div className={styles.container}>
-                <h1 className={styles.title}>Oferta</h1>
-            </div>
-        </Layout>
-    )
+const Offer: React.FC = () => {
+    return <SectionFullBackground />
 }
 export default Offer
 /////////////////////////////////////////////
 /////////    GET STATIC PROPS     ///////////
 /////////////////////////////////////////////
-export const getStaticProps: GetStaticProps = async () => {
-    const menu = await getMenu()
+export const getStaticProps: GetStaticProps = async (context) => {
+    const data = await getDataHooksProps({
+        context,
+        dataHooks: [
+            ...Header.dataHooks,
+            ...Footer.dataHooks,
+            ...SectionFullBackground.dataHooks,
+        ],
+    })
     return {
         props: {
-            menu,
+            ...data,
         },
         revalidate: 10,
     }

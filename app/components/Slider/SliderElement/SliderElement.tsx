@@ -3,11 +3,7 @@ interface ISrc {
     src: string
 }
 
-const SectionHero: React.FC<ISrc> = ({ src }) => {
-    return (
-        <div className="keen-slider__slide">
-            <Image src={src} layout="fill" objectFit="cover" />
-        </div>
-    )
+const Slides: React.FC<ISrc> = ({ src }) => {
+    return <Image src={src} layout="fill" objectFit="cover" />
 }
-export default SectionHero
+export default Slides

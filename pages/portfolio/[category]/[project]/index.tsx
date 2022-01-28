@@ -1,21 +1,18 @@
-import { getSinglePortfolio, getMenu } from "../../../../api"
-import Header from "../../../../app/components/Header/Header"
-import Layout from "../../../../app/Layout/Layout"
 import { GetServerSideProps } from "next"
+import { getDataHooksProps } from "next-data-hooks"
+import { getSinglePortfolio } from "../../../../api"
+import Header from "../../../../app/components/Header/Header"
+import Footer from "../../../../app/components/Footer/Footer"
 import { IServerData } from "../../../../models"
-import styles from "../../../../styles/Home.module.css"
 /////////////////////////////////////////////
 /////////        COMPONENT        ///////////
 /////////////////////////////////////////////
-const Project: React.FC<IServerData> = ({ project, menu }) => {
+const Project: React.FC<IServerData> = ({ project }) => {
     const { Title: title } = project
     return (
-        <Layout>
-            <Header menu={menu} />
-            <div className={styles.container}>
-                <h1 className={styles.title}>{title}</h1>
-            </div>
-        </Layout>
+        <div>
+            <h1>PROJECT</h1>
+        </div>
     )
 }
 /////////////////////////////////////////////
@@ -23,16 +20,26 @@ const Project: React.FC<IServerData> = ({ project, menu }) => {
 /////////////////////////////////////////////
 export const getServerSideProps: GetServerSideProps = async (context) => {
     //-------- TODO --------//
+    console.log(context.params)
     const { project, category } = context.params!
     const projectContent = await getSinglePortfolio(
         category as string,
         project as string
     )
-    const menu = await getMenu()
+    if (!projectContent) {
+        return {
+            notFound: true,
+        }
+    }
+    const data = await getDataHooksProps({
+        context,
+        dataHooks: [...Header.dataHooks, ...Footer.dataHooks],
+    })
+
     return {
         props: {
             project: projectContent,
-            menu,
+            ...data,
         },
     }
 }

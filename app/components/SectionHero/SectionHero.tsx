@@ -1,14 +1,18 @@
 import Container from "../Container/Container"
 import Slider from "../Slider/Slider"
-import { IServerData } from "../../../models"
+import { usePageContent } from "../../hooks/usePageContent"
 
-const SectionHero: React.FC<IServerData> = ({ children, content }) => {
-    const { subtitle, title, pictures } = content
+const SectionHero = () => {
+    const { Sections: sections } = usePageContent()
+    const {
+        Title: title,
+        SubTitle: subtitle,
+        Picture: { data: pictures },
+    } = sections[0]
     const slides = pictures.map((v: any) => ({
         id: v.id,
         src: `http://localhost:1337${v.attributes.formats.large.url}`,
     }))
-
     return (
         <section className="relative h-full w-full overflow-hidden flex-auto flex flex-col bg-black">
             <Slider slides={slides} />
@@ -21,4 +25,5 @@ const SectionHero: React.FC<IServerData> = ({ children, content }) => {
         </section>
     )
 }
+SectionHero.dataHooks = [usePageContent]
 export default SectionHero

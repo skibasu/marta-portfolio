@@ -21,6 +21,7 @@ module.exports = {
             xl: "70px",
             correct: "68px",
             header: "85px",
+            footer: "105px",
         },
         extend: {
             fontFamily: {
@@ -52,6 +53,7 @@ module.exports = {
             },
             height: {
                 header: "85px",
+                footer: "105px",
             },
             screens: {
                 sm: "460px",

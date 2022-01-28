@@ -5,6 +5,10 @@ export const getSinglePortfolio = async (category: string, slug: string) => {
         `http://localhost:1337/api/porffolios/${category}/${slug}`
     )
     const projectContent = (await res.json()) as IServerData
+    console.log("data", projectContent)
     const { data } = projectContent
+    if (!data?.length) {
+        return false
+    }
     return data[0].attributes
 }

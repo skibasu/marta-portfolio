@@ -15,3 +15,66 @@
 .aspect-movie {
     aspect-ratio: 16 / 9;
 }
+.slick-slide,
+.slick-slide > div {
+    width: 100%;
+    height: calc(100vh - 85px - 105px);
+}
+
+.mp__menu > li > ul {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease-in-out;
+    transform: translateX(100%);
+    z-index: -1;
+}
+
+.mp__menu > li:hover > ul {
+    opacity: 1;
+    z-index: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+.mp__menu > li:hover > a {
+    color: #66d2d6;
+}
+.mp__menu > li > ul > li:hover > a {
+    color: #66d2d6;
+}
+.mp__menu > li.active > a {
+    color: #66d2d6;
+}
+.mp__menu > li > ul > li.active > a {
+    color: #66d2d6;
+}
+.mp__portfolio-link {
+    transition: all 0.25s ease-in-out;
+}
+.mp__portfolio-link h2 {
+    transition: all 0.25s ease-in-out;
+}
+.mp__portfolio-link:hover h2 {
+    color: #66d2d6;
+}
+.mp__portfolio-link img {
+    transition: all 0.65s ease-in-out;
+}
+.mp__portfolio-link-wrapper:nth-child(even) .mp__portfolio-link:hover img {
+    transform: scale(1.15) rotate(-4deg);
+}
+.mp__portfolio-link-wrapper:nth-child(odd) .mp__portfolio-link:hover img {
+    transform: scale(1.15) rotate(4deg);
+}
+
+body::-webkit-scrollbar {
+    width: 12px;
+}
+
+body::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #000000;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #033536;
+}
