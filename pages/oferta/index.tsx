@@ -1,7 +1,10 @@
 import { GetStaticProps } from "next"
-import { getDataHooksProps } from "next-data-hooks"
-import Header from "../../app/components/Header/Header"
-import Footer from "../../app/components/Footer/Footer"
+import {
+    getMenu,
+    getCategoriesMenu,
+    getSettings,
+    getSpecificPage,
+} from "../../api/"
 import SectionFullBackground from "../../app/components/SectionFullBackground/SectionFullBackground"
 
 /////////////////////////////////////////////
@@ -15,17 +18,17 @@ export default Offer
 /////////    GET STATIC PROPS     ///////////
 /////////////////////////////////////////////
 export const getStaticProps: GetStaticProps = async (context) => {
-    const data = await getDataHooksProps({
-        context,
-        dataHooks: [
-            ...Header.dataHooks,
-            ...Footer.dataHooks,
-            ...SectionFullBackground.dataHooks,
-        ],
-    })
+    const menu = await getMenu()
+    const categories = await getCategoriesMenu()
+    const themeSettings = await getSettings()
+    const pageContent = await getSpecificPage("oferta")
+
     return {
         props: {
-            ...data,
+            menu,
+            categories,
+            themeSettings,
+            pageContent,
         },
         revalidate: 10,
     }

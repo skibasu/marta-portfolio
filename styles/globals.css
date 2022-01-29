@@ -17,10 +17,13 @@
 }
 .slick-slide,
 .slick-slide > div {
+    position: relative;
     width: 100%;
     height: calc(100vh - 85px - 105px);
 }
-
+.slick-slide img {
+    transition: all 1s ease-in-out;
+}
 .mp__menu > li > ul {
     opacity: 0;
     visibility: hidden;
@@ -57,13 +60,13 @@
     color: #66d2d6;
 }
 .mp__portfolio-link img {
-    transition: all 0.65s ease-in-out;
+    transition: all 0.55s ease-in-out;
 }
 .mp__portfolio-link-wrapper:nth-child(even) .mp__portfolio-link:hover img {
-    transform: scale(1.15) rotate(-4deg);
+    transform: scale(1.1);
 }
 .mp__portfolio-link-wrapper:nth-child(odd) .mp__portfolio-link:hover img {
-    transform: scale(1.15) rotate(4deg);
+    transform: scale(1.1);
 }
 
 body::-webkit-scrollbar {
@@ -77,4 +80,10 @@ body::-webkit-scrollbar-track {
 
 body::-webkit-scrollbar-thumb {
     background-color: #033536;
+}
+.opacity-0 {
+    opacity: 0 !important;
+}
+.opacity-100 {
+    opacity: 1 !important;
 }

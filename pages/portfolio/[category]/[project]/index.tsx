@@ -1,8 +1,10 @@
 import { GetServerSideProps } from "next"
-import { getDataHooksProps } from "next-data-hooks"
-import { getSinglePortfolio } from "../../../../api"
-import Header from "../../../../app/components/Header/Header"
-import Footer from "../../../../app/components/Footer/Footer"
+import {
+    getMenu,
+    getCategoriesMenu,
+    getSinglePortfolio,
+    getSettings,
+} from "../../../../api/"
 import { IServerData } from "../../../../models"
 /////////////////////////////////////////////
 /////////        COMPONENT        ///////////
@@ -19,8 +21,6 @@ const Project: React.FC<IServerData> = ({ project }) => {
 /////////     GET SERVER SIDE     ///////////
 /////////////////////////////////////////////
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    //-------- TODO --------//
-    console.log(context.params)
     const { project, category } = context.params!
     const projectContent = await getSinglePortfolio(
         category as string,
@@ -31,15 +31,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             notFound: true,
         }
     }
-    const data = await getDataHooksProps({
-        context,
-        dataHooks: [...Header.dataHooks, ...Footer.dataHooks],
-    })
+    const menu = await getMenu()
+    const categories = await getCategoriesMenu()
+    const themeSettings = await getSettings()
 
     return {
         props: {
             project: projectContent,
-            ...data,
+            menu,
+            categories,
+            themeSettings,
         },
     }
 }

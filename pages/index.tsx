@@ -1,38 +1,35 @@
 import { GetStaticProps } from "next"
-import { ParsedUrlQuery } from "querystring"
 import { IServerData } from "../models"
-import { getDataHooksProps } from "next-data-hooks"
-import Header from "../app/components/Header/Header"
-import Footer from "../app/components/Footer/Footer"
 import SectionHero from "../app/components/SectionHero/SectionHero"
+import PageSections from "../app/components/PageSections/PageSections"
+import {
+    getSpecificPage,
+    getCategoriesMenu,
+    getMenu,
+    getSettings,
+} from "../api"
 
-interface Params extends ParsedUrlQuery {
-    pid: string
-}
 /////////////////////////////////////////////
 /////////        COMPONENT        ///////////
 /////////////////////////////////////////////
-const Home: React.FC<IServerData> = () => {
-    return <SectionHero />
+const Home: React.FC<IServerData> = ({ content }) => {
+    //  return <SectionHero data={content} />
+    return <PageSections />
 }
 /////////////////////////////////////////////
 /////////    GET STATIC PROPS     ///////////
 /////////////////////////////////////////////
-export const getStaticProps: GetStaticProps<IServerData, Params> = async (
-    context
-) => {
-    const data = await getDataHooksProps({
-        context,
-        dataHooks: [
-            ...Header.dataHooks,
-            ...Footer.dataHooks,
-            ...SectionHero.dataHooks,
-        ],
-    })
-
+export const getStaticProps: GetStaticProps = async (context) => {
+    const pageContent = await getSpecificPage("home")
+    const menu = await getMenu()
+    const categories = await getCategoriesMenu()
+    const themeSettings = await getSettings()
     return {
         props: {
-            ...data,
+            pageContent,
+            menu,
+            categories,
+            themeSettings,
         },
         revalidate: 100000,
     }

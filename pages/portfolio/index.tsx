@@ -1,36 +1,24 @@
-import { getDataHooksProps } from "next-data-hooks"
-import Image from "next/image"
+import Image from "../../app/components/ImageFadIn/ImageFadeIn"
 import { GetStaticProps } from "next"
-import { getCategoriesMenu, getSpecificPage } from "../../api"
+import {
+    getCategoriesMenu,
+    getSpecificPage,
+    getCategories,
+    getMenu,
+    getSettings,
+} from "../../api"
 import Container from "../../app/components/Container/Container"
-import Header from "../../app/components/Header/Header"
-import Footer from "../../app/components/Footer/Footer"
+import FullBackground from "../../app/components/FullBackground/FullBackground"
 import PortfolioMenu from "../../app/components/PortfolioMenu/PortfolioMenu"
 import { IServerData } from "../../models"
 /////////////////////////////////////////////
 /////////        COMPONENT        ///////////
 /////////////////////////////////////////////
-const Portfolio: React.FC<IServerData> = ({ categoriesMenu, pageContent }) => {
-    const background =
-        pageContent?.thumbnail?.data?.attributes?.formats?.large?.url
-    const src = `http://localhost:1337${background}`
-
+const Portfolio: React.FC<IServerData> = () => {
     return (
         <Container className="pt-lg flex flex-col justify-center relative">
-            <span
-                className="w-full h-full absolute  z-10 bg-black opacity-80"
-                style={{ left: 0, right: 0, top: 0, bottom: 0 }}
-            ></span>
-            {background && (
-                <Image
-                    src={src}
-                    layout="fill"
-                    objectFit="cover"
-                    quality={100}
-                />
-            )}
-
-            <PortfolioMenu menu={categoriesMenu} title={pageContent.Title} />
+            <FullBackground />
+            <PortfolioMenu />
         </Container>
     )
 }
@@ -41,16 +29,17 @@ export default Portfolio
 export const getStaticProps: GetStaticProps = async (context) => {
     const categoriesMenu = await getCategoriesMenu()
     const pageContent = await getSpecificPage("portfolio")
+    const menu = await getMenu()
+    const categories = await getCategories()
+    const themeSettings = await getSettings()
 
-    const data = await getDataHooksProps({
-        context,
-        dataHooks: [...Header.dataHooks, ...Footer.dataHooks],
-    })
     return {
         props: {
-            ...data,
+            menu,
+            categories,
             categoriesMenu,
             pageContent,
+            themeSettings,
         },
         revalidate: 1000,
     }

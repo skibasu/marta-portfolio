@@ -1,5 +1,4 @@
 import Image from "next/image"
-import { usePageContent } from "../../hooks/usePageContent"
 
 const SectionHeroBackground = () => {
     return (
@@ -20,5 +19,5 @@ const SectionHeroBackground = () => {
         </div>
     )
 }
-SectionHeroBackground.dataHooks = [usePageContent]
+
 export default SectionHeroBackground

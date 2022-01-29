@@ -1,19 +1,16 @@
-import { useEffect, useState } from "react"
+import { useContext } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { useRouter } from "next/router"
-import usePageMenu from "../../hooks/usePageMenu"
+import { AppContext } from "../../contexts/header"
 import Container from "../Container/Container"
 import Row from "../Row/Row"
+import { IServerData } from "../../../models"
 
-const Header = () => {
-    const { menu, categories } = usePageMenu()
+const Header: React.FC<IServerData> = () => {
+    const { categories, menu } = useContext(AppContext)
     const { asPath: path } = useRouter()
-    const [activePage, setActivePath] = useState<string>("")
 
-    useEffect(() => {
-        setActivePath(path)
-    }, [menu])
     return (
         <header
             className="bg-black px-60  h-header fixed  w-full z-50"
@@ -33,9 +30,8 @@ const Header = () => {
                                 const regex = new RegExp(href, "g")
 
                                 const isActive =
-                                    regex.test(activePage) && activePage !== "/"
+                                    regex.test(path) && path !== "/"
                                 const activeClass = isActive ? " active" : ""
-                                console.log(activePage)
 
                                 return (
                                     <li
@@ -60,8 +56,8 @@ const Header = () => {
                                                 {categories?.map((v: any) => {
                                                     const href = `/portfolio/${v.slug}`
                                                     const isActive =
-                                                        href === activePage &&
-                                                        activePage !== "/"
+                                                        href === path &&
+                                                        path !== "/"
                                                     const activeClass = isActive
                                                         ? " active"
                                                         : ""
@@ -110,5 +106,5 @@ const Header = () => {
         </header>
     )
 }
-Header.dataHooks = [usePageMenu]
+
 export default Header
