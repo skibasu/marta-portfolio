@@ -1,30 +1,34 @@
 import { GetStaticProps } from "next"
-import { getDataHooksProps } from "next-data-hooks"
-import Header from "../../app/components/Header/Header"
-import Footer from "../../app/components/Footer/Footer"
+import {
+    getMenu,
+    getCategoriesMenu,
+    getSettings,
+    getSpecificPage,
+} from "../../api/"
+import PageSections from "../../app/components/PageSections/PageSections"
 import { IServerData } from "../../models"
 /////////////////////////////////////////////
 /////////        COMPONENT        ///////////
 /////////////////////////////////////////////
 const Offer: React.FC<IServerData> = ({ data }) => {
-    return (
-        <div>
-            <h1>Cennik</h1>
-        </div>
-    )
+    return <PageSections />
 }
 export default Offer
 /////////////////////////////////////////////
 /////////    GET STATIC PROPS     ///////////
 /////////////////////////////////////////////
 export const getStaticProps: GetStaticProps = async (context) => {
-    const data = await getDataHooksProps({
-        context,
-        dataHooks: [...Header.dataHooks, ...Footer.dataHooks],
-    })
+    const menu = await getMenu()
+    const categories = await getCategoriesMenu()
+    const themeSettings = await getSettings()
+    const pageContent = await getSpecificPage("cennik")
+
     return {
         props: {
-            ...data,
+            menu,
+            categories,
+            themeSettings,
+            pageContent,
         },
         revalidate: 10,
     }

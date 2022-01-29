@@ -1,9 +1,10 @@
+import { useContext } from "react"
+import { AppContext } from "../../contexts/header"
 import Image from "next/image"
-import useThemeSettings from "../../hooks/useThemeSettings"
 import Container from "../Container/Container"
 
-const Footer = () => {
-    const { socialMedia, copyrights } = useThemeSettings()
+const Footer: React.FC = () => {
+    const { themeSettings } = useContext(AppContext)
     return (
         <footer
             className="bg-black pb-sm pt-md text-neutral-200 h-footer -mt-footer w-full relative z-10"
@@ -11,7 +12,7 @@ const Footer = () => {
         >
             <Container>
                 <ul className="flex justify-center mb-xs">
-                    {socialMedia?.map((v: any) => {
+                    {themeSettings?.socialMedia?.map((v: any) => {
                         const src = `http://localhost:1337${v.Icon.data.attributes.url}`
                         return (
                             <li
@@ -34,10 +35,13 @@ const Footer = () => {
                         )
                     })}
                 </ul>
-                <p className="text-center text-mini">{copyrights}</p>
+                {themeSettings?.copyrights && (
+                    <p className="text-center text-mini">
+                        {themeSettings.copyrights}
+                    </p>
+                )}
             </Container>
         </footer>
     )
 }
-Footer.dataHooks = [useThemeSettings]
 export default Footer

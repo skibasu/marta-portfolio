@@ -1,4 +1,4 @@
-import { IServerData } from "../../models"
+import { IServerData, IMenu } from "../../models"
 
 export const getMenu = async () => {
     const res = await fetch(
@@ -6,5 +6,5 @@ export const getMenu = async () => {
     )
     const menu = (await res.json()) as IServerData
 
-    return menu.data.attributes.PageLink
+    return menu.data.attributes.PageLink as IMenu
 }

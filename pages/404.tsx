@@ -1,10 +1,8 @@
 import { GetStaticProps } from "next"
 import { ParsedUrlQuery } from "querystring"
-import { IServerData } from "../models"
-import { getDataHooksProps } from "next-data-hooks"
+import { getMenu, getCategoriesMenu, getSettings } from "../api/"
 import Container from "../app/components/Container/Container"
-import Header from "../app/components/Header/Header"
-import Footer from "../app/components/Footer/Footer"
+import { IServerData } from "../models"
 
 interface Params extends ParsedUrlQuery {
     pid: string
@@ -26,17 +24,16 @@ const ErrorPage: React.FC = () => {
 /////////////////////////////////////////////
 /////////    GET STATIC PROPS     ///////////
 /////////////////////////////////////////////
-export const getStaticProps: GetStaticProps<IServerData, Params> = async (
-    context
-) => {
-    const data = await getDataHooksProps({
-        context,
-        dataHooks: [...Header.dataHooks, ...Footer.dataHooks],
-    })
+export const getStaticProps: GetStaticProps = async (context) => {
+    const menu = await getMenu()
+    const categories = await getCategoriesMenu()
+    const themeSettings = await getSettings()
 
     return {
         props: {
-            ...data,
+            menu,
+            categories,
+            themeSettings,
         },
         revalidate: 10,
     }

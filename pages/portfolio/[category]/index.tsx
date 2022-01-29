@@ -1,10 +1,13 @@
-import { getDataHooksProps } from "next-data-hooks"
 import { GetStaticProps } from "next"
 import { ParsedUrlQuery } from "querystring"
-import { getPortfolios, getCategories } from "../../../api"
+import {
+    getPortfolios,
+    getCategories,
+    getMenu,
+    getCategoriesMenu,
+    getSettings,
+} from "../../../api"
 import Container from "../../../app/components/Container/Container"
-import Header from "../../../app/components/Header/Header"
-import Footer from "../../../app/components/Footer/Footer"
 import PortfolioGrid from "../../../app/components/PortfolioGrid/PorftolioGrid"
 import { IServerData } from "../../../models"
 
@@ -50,15 +53,17 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (
 ) => {
     const { category } = context.params!
     const { content, zone } = await getPortfolios(category)
-    const data = await getDataHooksProps({
-        context,
-        dataHooks: [...Header.dataHooks, ...Footer.dataHooks],
-    })
+    const menu = await getMenu()
+    const categories = await getCategoriesMenu()
+    const themeSettings = await getSettings()
+
     return {
         props: {
             content,
             zone,
-            ...data,
+            menu,
+            categories,
+            themeSettings,
         },
         revalidate: 1000,
     }
