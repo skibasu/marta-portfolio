@@ -1,9 +1,10 @@
 import { useContext } from "react"
 import Image from "next/image"
 import Container from "../Container/Container"
+import { IServerData } from "../../../models"
 
-const Footer: React.FC = () => {
-    const themeSettings = { socialMedia: [], copyrights: "copy" }
+const Footer: React.FC<IServerData> = ({ data }) => {
+    const { socialMedia, copyrights } = data
     return (
         <footer
             className="bg-black pb-sm pt-md text-neutral-200 h-footer -mt-footer w-full relative z-10"
@@ -11,7 +12,7 @@ const Footer: React.FC = () => {
         >
             <Container>
                 <ul className="flex justify-center mb-xs">
-                    {themeSettings?.socialMedia?.map((v: any) => {
+                    {socialMedia?.map((v: any) => {
                         const src = `http://localhost:1337${v.Icon.data.attributes.url}`
                         return (
                             <li
@@ -34,10 +35,8 @@ const Footer: React.FC = () => {
                         )
                     })}
                 </ul>
-                {themeSettings?.copyrights && (
-                    <p className="text-center text-mini">
-                        {themeSettings.copyrights}
-                    </p>
+                {copyrights && (
+                    <p className="text-center text-mini">{copyrights}</p>
                 )}
             </Container>
         </footer>

@@ -1,46 +1,12 @@
-import { useEffect } from "react"
 import { GetStaticProps } from "next"
-import { useContext } from "react"
-import { AppContext } from "../app/contextStore/ContextStore"
 import SinglePage from "../app/templates/SinglePage"
 import { IServerData } from "../models"
+import { getAllPagesSlug, getDataForPages } from "../api"
 
-import {
-    getAllPagesSlug,
-    getCategoriesMenu,
-    getMenu,
-    getSettings,
-    getSpecificPage,
-} from "../api"
-
-/////////////////////////////////////////////
-/////////        COMPONENT        ///////////
-/////////////////////////////////////////////
-const Home: React.FC<IServerData> = ({
-    categoriesMenu,
-    pageContent,
-    menu,
-    themeSettings,
-}) => {
-    const {
-        updateCategoriesMenu,
-        updatePageContent,
-        updateMenu,
-        updateSettings,
-    } = useContext(AppContext)
-
-    useEffect(() => {
-        updateCategoriesMenu(categoriesMenu)
-        updatePageContent(pageContent)
-        updateMenu(menu.menu)
-        updateSettings(themeSettings)
-    }, [pageContent])
-
-    return <SinglePage />
+const Page: React.FC<IServerData> = ({ pageContent }) => {
+    return <SinglePage data={pageContent} />
 }
-/////////////////////////////////////////////
-/////////    GET STATIC PATHS     ///////////
-/////////////////////////////////////////////
+
 export const getStaticPaths = async () => {
     const paths = await getAllPagesSlug()
 
@@ -49,26 +15,21 @@ export const getStaticPaths = async () => {
         fallback: true,
     }
 }
-/////////////////////////////////////////////
-/////////    GET STATIC PROPS     ///////////
-/////////////////////////////////////////////
+
 export const getStaticProps: GetStaticProps = async (context) => {
     const { slug } = context.params!
-    console.log(slug)
+    const { menu, categoriesMenu, themeSettings, pageContent } =
+        await getDataForPages(slug as string)
 
-    const categoriesMenu = await getCategoriesMenu()
-    const pageContent = await getSpecificPage(slug as string)
-    const menu = await getMenu()
-    const themeSettings = await getSettings()
     return {
         props: {
-            categoriesMenu,
-            pageContent,
             menu,
+            categoriesMenu,
             themeSettings,
+            pageContent,
         },
-        revalidate: 100000,
+        revalidate: 10,
     }
 }
 
-export default Home
+export default Page

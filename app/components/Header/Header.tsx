@@ -1,15 +1,12 @@
-import { useContext } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import Container from "../Container/Container"
 import Row from "../Row/Row"
 import { IServerData } from "../../../models"
-import { AppContext } from "../../contextStore/ContextStore"
 
-const Header: React.FC<IServerData> = () => {
-    const { menu, categoriesMenu } = useContext(AppContext)
-    console.log(menu)
+const Header: React.FC<IServerData> = ({ data }) => {
+    const { menu, categoriesMenu } = data
     const { asPath: path } = useRouter()
 
     return (
@@ -17,10 +14,7 @@ const Header: React.FC<IServerData> = () => {
             className="bg-black px-60  h-header fixed  w-full z-50 text-white"
             style={{ top: 0, left: 0, right: 0 }}
         >
-            <Link href="/oferta">OFERTA</Link>
-            <Link href="/kontakt">KONTAKT</Link>
-            <Link href="/">HOME</Link>
-            {/* <Container>
+            <Container>
                 <Row className="justify-between items-center h-full">
                     <div className="logo">
                         <Link href="/">
@@ -109,7 +103,7 @@ const Header: React.FC<IServerData> = () => {
                         </ul>
                     </nav>
                 </Row>
-            </Container> */}
+            </Container>
         </header>
     )
 }

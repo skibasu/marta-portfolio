@@ -26,17 +26,7 @@ export interface IThemeSettings {
     page: IServerData
 }
 
-export interface IAppContext {
-    children?: React.ReactElement[] | React.ReactElement
-    menu: IMenu[]
-    categories: IServerData[]
-    themeSettings: TSettings
-    pageContent: IServerData
-    categoriesMenu: IServerData[]
-
-    updateMenu: (menu: IMenu[]) => void
-    updateCategories: (categories: IServerData) => void
-    updateSettings: (themeSettings: TSettings) => void
-    updatePageContent: (pageContent: IServerData) => void
-    updateCategoriesMenu: (categoriesMenu: IServerData) => void
+export enum ESectionsNames {
+    PAGE_EDITOR = "sections.page-editor",
+    SEO = "sections.seo",
 }
