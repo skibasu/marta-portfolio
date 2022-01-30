@@ -5,6 +5,5 @@ export const getMenu = async () => {
         `http://localhost:1337/api/menu?populate[PageLink][populate]=*`
     )
     const menu = (await res.json()) as IServerData
-
-    return menu.data.attributes.PageLink as IMenu
+    return menu.data.attributes.PageLink as IMenu[]
 }

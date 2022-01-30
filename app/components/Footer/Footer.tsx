@@ -1,10 +1,9 @@
 import { useContext } from "react"
-import { AppContext } from "../../contexts/header"
 import Image from "next/image"
 import Container from "../Container/Container"
 
 const Footer: React.FC = () => {
-    const { themeSettings } = useContext(AppContext)
+    const themeSettings = { socialMedia: [], copyrights: "copy" }
     return (
         <footer
             className="bg-black pb-sm pt-md text-neutral-200 h-footer -mt-footer w-full relative z-10"

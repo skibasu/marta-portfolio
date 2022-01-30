@@ -1,6 +1,9 @@
 export interface IServerData {
     [key: string]: any
 }
+export interface IChildren {
+    children?: React.ReactElement[] | React.ReactElement
+}
 
 export interface IMenu {
     Label?: string
@@ -30,5 +33,10 @@ export interface IAppContext {
     themeSettings: TSettings
     pageContent: IServerData
     categoriesMenu: IServerData[]
+
+    updateMenu: (menu: IMenu[]) => void
+    updateCategories: (categories: IServerData) => void
+    updateSettings: (themeSettings: TSettings) => void
     updatePageContent: (pageContent: IServerData) => void
+    updateCategoriesMenu: (categoriesMenu: IServerData) => void
 }

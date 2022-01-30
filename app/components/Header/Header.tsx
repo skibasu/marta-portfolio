@@ -2,21 +2,25 @@ import { useContext } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { useRouter } from "next/router"
-import { AppContext } from "../../contexts/header"
 import Container from "../Container/Container"
 import Row from "../Row/Row"
 import { IServerData } from "../../../models"
+import { AppContext } from "../../contextStore/ContextStore"
 
 const Header: React.FC<IServerData> = () => {
-    const { categories, menu } = useContext(AppContext)
+    const { menu, categoriesMenu } = useContext(AppContext)
+    console.log(menu)
     const { asPath: path } = useRouter()
 
     return (
         <header
-            className="bg-black px-60  h-header fixed  w-full z-50"
+            className="bg-black px-60  h-header fixed  w-full z-50 text-white"
             style={{ top: 0, left: 0, right: 0 }}
         >
-            <Container>
+            <Link href="/oferta">OFERTA</Link>
+            <Link href="/kontakt">KONTAKT</Link>
+            <Link href="/">HOME</Link>
+            {/* <Container>
                 <Row className="justify-between items-center h-full">
                     <div className="logo">
                         <Link href="/">
@@ -53,47 +57,50 @@ const Header: React.FC<IServerData> = () => {
                                                     gap: "20px",
                                                 }}
                                             >
-                                                {categories?.map((v: any) => {
-                                                    const href = `/portfolio/${v.slug}`
-                                                    const isActive =
-                                                        href === path &&
-                                                        path !== "/"
-                                                    const activeClass = isActive
-                                                        ? " active"
-                                                        : ""
-                                                    return (
-                                                        <li
-                                                            key={v.slug}
-                                                            className={
-                                                                activeClass
-                                                            }
-                                                        >
-                                                            <Link
-                                                                href={`/portfolio/${v.slug}`}
+                                                {categoriesMenu?.map(
+                                                    (v: any) => {
+                                                        const href = `/portfolio/${v.slug}`
+                                                        const isActive =
+                                                            href === path &&
+                                                            path !== "/"
+                                                        const activeClass =
+                                                            isActive
+                                                                ? " active"
+                                                                : ""
+                                                        return (
+                                                            <li
+                                                                key={v.slug}
+                                                                className={
+                                                                    activeClass
+                                                                }
                                                             >
-                                                                <a>
-                                                                    <div className="flex items-center border-b border-neutral-500">
-                                                                        <figure className="relative w-lg  mr-sm aspect-alternative">
-                                                                            <Image
-                                                                                src={`http://localhost:1337${v.thumbnail?.small?.url}`}
-                                                                                layout="fill"
-                                                                                objectFit="cover"
-                                                                                className="rounded-t"
-                                                                                loading="eager"
-                                                                            />
-                                                                        </figure>
+                                                                <Link
+                                                                    href={`/portfolio/${v.slug}`}
+                                                                >
+                                                                    <a>
+                                                                        <div className="flex items-center border-b border-neutral-500">
+                                                                            <figure className="relative w-lg  mr-sm aspect-alternative">
+                                                                                <Image
+                                                                                    src={`http://localhost:1337${v.thumbnail?.small?.url}`}
+                                                                                    layout="fill"
+                                                                                    objectFit="cover"
+                                                                                    className="rounded-t"
+                                                                                    loading="eager"
+                                                                                />
+                                                                            </figure>
 
-                                                                        <span className="text-sm block">
-                                                                            {
-                                                                                v.name
-                                                                            }
-                                                                        </span>
-                                                                    </div>
-                                                                </a>
-                                                            </Link>
-                                                        </li>
-                                                    )
-                                                })}
+                                                                            <span className="text-sm block">
+                                                                                {
+                                                                                    v.name
+                                                                                }
+                                                                            </span>
+                                                                        </div>
+                                                                    </a>
+                                                                </Link>
+                                                            </li>
+                                                        )
+                                                    }
+                                                )}
                                             </ul>
                                         )}
                                     </li>
@@ -102,7 +109,7 @@ const Header: React.FC<IServerData> = () => {
                         </ul>
                     </nav>
                 </Row>
-            </Container>
+            </Container> */}
         </header>
     )
 }

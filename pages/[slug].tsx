@@ -1,13 +1,22 @@
 import { useEffect } from "react"
-import { useContext } from "react"
 import { GetStaticProps } from "next"
-import { getDataForPages } from "../api"
+import { useContext } from "react"
 import { AppContext } from "../app/contextStore/ContextStore"
+import SinglePage from "../app/templates/SinglePage"
 import { IServerData } from "../models"
+
+import {
+    getAllPagesSlug,
+    getCategoriesMenu,
+    getMenu,
+    getSettings,
+    getSpecificPage,
+} from "../api"
+
 /////////////////////////////////////////////
 /////////        COMPONENT        ///////////
 /////////////////////////////////////////////
-const HomePage: React.FC<IServerData> = ({
+const Home: React.FC<IServerData> = ({
     categoriesMenu,
     pageContent,
     menu,
@@ -23,26 +32,43 @@ const HomePage: React.FC<IServerData> = ({
     useEffect(() => {
         updateCategoriesMenu(categoriesMenu)
         updatePageContent(pageContent)
-        updateMenu(menu)
+        updateMenu(menu.menu)
         updateSettings(themeSettings)
-    }, [])
-    return <p>Home Page</p>
+    }, [pageContent])
+
+    return <SinglePage />
 }
-export default HomePage
+/////////////////////////////////////////////
+/////////    GET STATIC PATHS     ///////////
+/////////////////////////////////////////////
+export const getStaticPaths = async () => {
+    const paths = await getAllPagesSlug()
+
+    return {
+        paths,
+        fallback: true,
+    }
+}
 /////////////////////////////////////////////
 /////////    GET STATIC PROPS     ///////////
 /////////////////////////////////////////////
 export const getStaticProps: GetStaticProps = async (context) => {
-    const { menu, categoriesMenu, themeSettings, pageContent } =
-        await getDataForPages("home")
+    const { slug } = context.params!
+    console.log(slug)
 
+    const categoriesMenu = await getCategoriesMenu()
+    const pageContent = await getSpecificPage(slug as string)
+    const menu = await getMenu()
+    const themeSettings = await getSettings()
     return {
         props: {
-            menu,
             categoriesMenu,
-            themeSettings,
             pageContent,
+            menu,
+            themeSettings,
         },
-        revalidate: 10,
+        revalidate: 100000,
     }
 }
+
+export default Home

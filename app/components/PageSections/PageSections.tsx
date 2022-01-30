@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { AppContext } from "../../contexts/header"
+import { AppContext } from "../../contextStore/header"
 import Container from "../Container/Container"
 import Slider from "../Slider/Slider"
 import { IServerData } from "../../../models"

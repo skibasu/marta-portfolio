@@ -1,12 +1,11 @@
 import { useContext } from "react"
-import { AppContext } from "../../contexts/header"
 import Container from "../Container/Container"
 import Slider from "../Slider/Slider"
 import { IServerData } from "../../../models"
 
 const SectionHero: React.FC<IServerData> = () => {
-    const { pageContent } = useContext(AppContext)
-    console.log(pageContent)
+    //  const { pageContent } = useContext(AppContext)
+    //  console.log(pageContent)
     //  const componentData = sections?.filter(
     //      (v: IServerData) => v.__component === "sections.page-editor"
     //  )

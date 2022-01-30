@@ -1,12 +1,12 @@
 import { useContext } from "react"
-import { AppContext } from "../../contexts/header"
+
 import Link from "next/link"
 import Image from "../ImageFadIn/ImageFadeIn"
 import Row from "../Row/Row"
 
 const PortfolioMenu: React.FC = () => {
-    const { categoriesMenu: menu, pageContent } = useContext(AppContext)
-    console.log(menu, pageContent)
+    //  const { categoriesMenu: menu, pageContent } = useContext(AppContext)
+    //  console.log(menu, pageContent)
     return (
         <div className="-mx-md relative z-20">
             <h1 className="text-center font-semibold text-h1 mb-xl font-nunito tracking-widest">

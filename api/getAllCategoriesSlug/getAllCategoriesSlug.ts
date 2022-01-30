@@ -1,6 +1,6 @@
 import { IServerData } from "../../models"
 
-export const getCategories = async () => {
+export const getAllCategoriesSlug = async () => {
     const res = await fetch(`http://localhost:1337/api/categories/`)
     const resData = (await res.json()) as IServerData
     const category = resData.data.map((v: any) => ({
