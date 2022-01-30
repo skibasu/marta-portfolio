@@ -4,7 +4,6 @@ import Container from "../Container/Container"
 import { IServerData } from "../../../models"
 
 const Footer: React.FC<IServerData> = ({ data }) => {
-    const { socialMedia, copyrights } = data
     return (
         <footer
             className="bg-black pb-sm pt-md text-neutral-200 h-footer -mt-footer w-full relative z-10"
@@ -12,7 +11,7 @@ const Footer: React.FC<IServerData> = ({ data }) => {
         >
             <Container>
                 <ul className="flex justify-center mb-xs">
-                    {socialMedia?.map((v: any) => {
+                    {data?.socialMedia?.map((v: any) => {
                         const src = `http://localhost:1337${v.Icon.data.attributes.url}`
                         return (
                             <li
@@ -35,8 +34,8 @@ const Footer: React.FC<IServerData> = ({ data }) => {
                         )
                     })}
                 </ul>
-                {copyrights && (
-                    <p className="text-center text-mini">{copyrights}</p>
+                {data?.copyrights && (
+                    <p className="text-center text-mini">{data.copyrights}</p>
                 )}
             </Container>
         </footer>

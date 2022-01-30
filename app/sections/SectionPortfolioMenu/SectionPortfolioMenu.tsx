@@ -11,11 +11,11 @@ const SectionPortfolioMenu: React.FC<IServerData> = ({ data }) => {
         <section className="-mx-md relative z-20 h-full flex-auto flex flex-col justify-center">
             <Container className="pt-lg flex flex-col justify-center relative">
                 <h1 className="text-center font-semibold text-h1 mb-xl font-nunito tracking-widest">
-                    {pageContent.Title}
+                    {pageContent.Title} Portfolio
                 </h1>
                 <Row>
                     {menu.map((v: any, k: number) => {
-                        const src = v.thumbnail?.medium?.url
+                        const src = v?.thumbnail?.medium?.url
                             ? `http://localhost:1337${v.thumbnail.medium.url}`
                             : "http://localhost:1337/sample.jpg"
                         const slug = v.slug

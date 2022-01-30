@@ -25,6 +25,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
             themeSettings,
             pageContent,
         },
-        revalidate: 10,
+        revalidate: 1000,
     }
 }

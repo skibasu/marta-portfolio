@@ -6,6 +6,5 @@ export const getAllPagesSlug = async () => {
     const pages = resData.data.map((v: IServerData) => {
         return { params: { slug: v.attributes.pageId } }
     })
-    console.log(pages)
     return pages
 }

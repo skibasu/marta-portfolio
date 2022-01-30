@@ -43,6 +43,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
             categoriesMenu,
             themeSettings,
         },
-        revalidate: 10,
+        revalidate: 1000,
     }
 }

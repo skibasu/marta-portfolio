@@ -7,6 +7,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@babel/core": "^7.16.12",
     "@tailwindcss/forms": "^0.4.0",
     "@types/react": "^17.0.38",
     "@types/react-slick": "^0.23.8",
@@ -22,6 +23,7 @@
     "swiper": "^7.4.1"
   },
   "devDependencies": {
+    "@types/node": "^17.0.13",
     "@types/styled-components": "^5.1.21",
     "autoprefixer": "^10.4.2",
     "eslint": "8.7.0",

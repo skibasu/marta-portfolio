@@ -2,7 +2,9 @@ module.exports = {
     content: [
         "./pages/**/*.{js,ts,jsx,tsx}",
         "./app/components/**/*.{js,ts,jsx,tsx}",
-        "./app/Layout/Layout.tsx",
+        "./app/layout/layout.tsx",
+        "./app/sections/**/*.{js,ts,jsx,tsx}",
+        "./app/templates/*.{js,ts,jsx,tsx}",
     ],
     darkMode: "class",
     theme: {

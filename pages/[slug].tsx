@@ -9,9 +9,11 @@ const Page: React.FC<IServerData> = ({ pageContent }) => {
 
 export const getStaticPaths = async () => {
     const paths = await getAllPagesSlug()
-
+    const filteredPaths = paths.filter(
+        (v: IServerData) => v.params.slug !== "portfolio"
+    )
     return {
-        paths,
+        paths: filteredPaths,
         fallback: true,
     }
 }
@@ -28,7 +30,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
             themeSettings,
             pageContent,
         },
-        revalidate: 10,
+        revalidate: 1000,
     }
 }
 
